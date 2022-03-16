@@ -1,8 +1,8 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        
-        int a=0,b=0;
+        int a,b;
+        a=b=0;
         stack<char>st;
         for(int i=0;i<s.size();i++)
         {
