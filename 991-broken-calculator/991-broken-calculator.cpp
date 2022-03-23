@@ -1,15 +1,20 @@
 class Solution {
 public:
     int brokenCalc(int x, int k) {
-        if(x>=k)
+       int c=0;
+        while(k>x)
         {
-            return x-k;
+            c++;
+            if(k%2==0)
+            {
+                k/=2;
+            }
+            else
+            {
+                k++;
+            }
         }
-        if(k%2==0)
-        {
-            return 1+brokenCalc(x,k/2);
-        }
-        return 1+brokenCalc(x,k+1);
+        return c+(x-k);
             
             
         
