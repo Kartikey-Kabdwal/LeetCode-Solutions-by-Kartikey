@@ -1,13 +1,12 @@
 class Solution {
 public:
     int numRescueBoats(vector<int>& v, int k) {
-        int n=v.size();
-        int l=0,r=n-1;
-        int c=0;
         sort(v.begin(),v.end());
-        
+        int l=0,r=v.size()-1;
+        int c=0;
         while(l<=r)
         {
+            
             if(v[l]+v[r]<=k)
             {
                 l++;
@@ -23,5 +22,3 @@ public:
         
     }
 };
-
-    
