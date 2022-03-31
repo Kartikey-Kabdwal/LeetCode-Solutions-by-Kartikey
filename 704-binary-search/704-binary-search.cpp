@@ -1,24 +1,24 @@
 class Solution {
 public:
     int search(vector<int>& v, int k) {
+        
         int n=v.size();
-        int low=0,high=n-1;
-        while(low<=high)
+        int start=0,end=n-1,mid=(start+end)/2;
+        while(start<=end)
         {
-            int mid = (low+high)/2;
             if(v[mid]==k)
             {
-                return mid;
+                return mid;   
             }
             else if(v[mid]<k)
             {
-                low=mid+1;
+                start=mid+1;     
             }
             else
             {
-                high=mid-1;
+                end=mid-1;
             }
-            
+            mid=(end+start)/2;
         }
         return -1;
         
