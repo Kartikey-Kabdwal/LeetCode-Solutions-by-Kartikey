@@ -13,8 +13,18 @@ using namespace std;
 class Solution{
   public:
     int MissingNumber(vector<int>& v, int n) {
-        int s=accumulate(v.begin(),v.end(),0);
-        return (n*(n+1)/2)-s;
+        // int s=accumulate(v.begin(),v.end(),0);
+        // return (n*(n+1)/2)-s;
+        int x=0, j=1;;
+        for(int i=0;i<n-1;i++)
+        {
+            x^=v[i];
+            x^=j++;
+            
+        }
+        x^=j;
+        return x;
+        
         // Your code goes here
     }
 };
