@@ -1,48 +1,33 @@
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-	//CREATED TEMPERARY 1D VECTOR 
-        vector<int>tempvec;
-	//TEMP VARIABLE	
-        int temp;
-		
-	//IN THIS LOOP I HAVE PUSH ALL THE ELEMENTS OF 2D ARRAY TO 1D ARRAY
-        for (int i=0;i< matrix.size();i++)
+    bool searchMatrix(vector<vector<int>>& v, int k) {
+        
+        vector<int>ans;
+        for(int i=0;i<v.size();i++)
         {
-            for(int j=0;j < matrix[i].size();j++)
+            for(int j=0;j<v[i].size();j++)
             {
-                temp=matrix[i][j];
-                tempvec.push_back(temp);
-    
+                ans.push_back(v[i][j]);
             }
         }
-        
-        int s=0;
-        int e=tempvec.size()-1;
-        int mid;
-		
-	// HERE I HAVE USED THE SIMPLE BINARY SEARCH ON 1D ARRAY
-        while(s<=e)
+        int start=0,end=ans.size()-1,mid=(start+end)/2;
+        while(start<=end)
         {
-            mid=(s+e)/2;
-            
-            if(tempvec[mid]==target)
+            mid=(start+end)/2;
+            if(ans[mid]==k)
             {
                 return true;
             }
-            
-            else if(tempvec[mid]<target)
+            else if(ans[mid]<k)
             {
-                s=mid+1;
-                
+                start=mid+1;
             }
             else
             {
-                e=mid-1;
+                end=mid-1;
             }
         }
+        return 0;
         
-        
-        return false;
     }
 };
