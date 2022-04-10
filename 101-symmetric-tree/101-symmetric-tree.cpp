@@ -17,11 +17,11 @@ public:
         {
             return true;
         }
-        else if(!a or !b)
+        else if((a and !b) or (!a and b) )
         {
-            return false;  
+            return false;
         }
-        else if(a->val!=b->val)
+        else if(a->val !=b->val)
         {
             return false;
         }
@@ -29,13 +29,9 @@ public:
         {
             return check(a->left,b->right) and check(a->right,b->left);
         }
-        
     }
     bool isSymmetric(TreeNode* root) {
-        if(!root)
-        {
-            return true;
-        }
         return check(root->left,root->right);
+        
     }
 };
