@@ -10,31 +10,39 @@ using namespace std;
 
 class Solution{
     public:
-    int catchThieves(char s[], int n, int k) 
+    int catchThieves(char v[], int n, int k) 
     {
-        // Code here 
-        int c=0;
-        queue<int>police,chor;
+        vector<int>police,chor;
         for(int i=0;i<n;i++)
         {
-            s[i]=='P'?police.push(i):chor.push(i);
-        }
-        while(!police.empty() and !chor.empty())
-        {
-            if(abs(police.front()-chor.front())<=k)
+            if(v[i]=='P')
             {
-                c++;
-                police.pop();
-                chor.pop();
-            }
-            else if(police.front()<chor.front())
-            {
-                police.pop();
+                police.push_back(i);
             }
             else
             {
-                chor.pop();
+                chor.push_back(i);
             }
+        }
+        int i=0,j=0;
+        int c=0,c2=0;
+        while(i<police.size() and j<chor.size())
+        {
+            if(abs(police[i]-chor[j])<=k)
+            {
+                c++;
+                i++;
+                j++;
+            }
+            else if(police[i]<chor[j])
+            {
+                i++;
+            }
+            else
+            {
+                j++;
+            }
+            
         }
         return c;
     }
