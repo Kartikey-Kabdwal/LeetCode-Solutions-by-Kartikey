@@ -2,27 +2,23 @@ class Solution {
 public:
     int maxProfit(vector<int>& v) {
         
-        int n=v.size();
-        int j=1;
-        int i=0;
-        int ans=0;
-        if(n==1)
+        int profit=0;
+       
+        
+        int m=v[0];
+        for(int i=1;i<v.size();i++)
         {
-            return 0;
-        }
-        while(j<n)
-        {
-            if(v[j]-v[i]<0)
+            if(v[i]<m)
             {
-                i=j; 
+                m=v[i];
+                continue;
             }
             else
             {
-            ans=max(ans,v[j]-v[i]);
+                profit=max(v[i]-m,profit);
             }
-            j++;
         }
-        return ans;
+        return profit;
         
         
     }
