@@ -1,32 +1,29 @@
 class Solution {
 public:
-    int candy(vector<int>& ratings) {
-        int n = ratings.size();
-        int candy = n, i=1;
-        while(i<n){
-            if(ratings[i] == ratings[i-1]){
-                i++;
-                continue;
+    int candy(vector<int>& a) {
+        
+        int n=a.size();
+        vector<int>v1(n,1),v2(n,1);
+        for(int i=1;i<n;i++)
+        {
+            if(a[i]>a[i-1])
+            {
+                v1[i]=v1[i-1]+1;
             }
-            
-            //For increasing slope
-            int peak = 0;
-            while(ratings[i] > ratings [i-1]){
-                peak++;
-                candy += peak;
-                i++;
-                if(i == n) return candy;
-            }
-            
-            //For decreasing slope
-            int valley = 0;
-            while(i<n && ratings[i] < ratings[i-1]){
-                valley++;
-                candy += valley;
-                i++;
-            }
-            candy -= min(peak, valley); //Keep only the higher peak
         }
-        return candy;
+         
+        for(int i=n-2;i>=0;i--)
+        {
+            if(a[i]>a[i+1])
+            {
+                v2[i]=v2[i+1]+1;
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            a[i]=max(v1[i],v2[i]);
+        }
+        return accumulate(a.begin(),a.end(),0);
+        
     }
 };
