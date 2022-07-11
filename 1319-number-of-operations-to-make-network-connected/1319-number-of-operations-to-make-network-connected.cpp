@@ -14,7 +14,7 @@ public:
             {
                 if(!vis[it])
                 {
-                    bfs(it,adj,vis);
+                    q.push(it);
                      vis[it]=1;
                     
                 }
