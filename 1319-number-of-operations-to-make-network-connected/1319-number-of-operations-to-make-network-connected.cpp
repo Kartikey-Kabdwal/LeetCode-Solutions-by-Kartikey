@@ -9,13 +9,15 @@ public:
         while(!q.empty())
         {
             int it=q.front();
+            
             q.pop();
             for(auto it:adj[it])
             {
                 if(!vis[it])
                 {
                     q.push(it);
-                     vis[it]=1;
+                    vis[it]=1;
+                     
                     
                 }
             }
