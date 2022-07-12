@@ -1,32 +1,33 @@
-typedef pair<int, int> pii;
-
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
-        vector<vector<pii> > g(n + 1);
-        for (const auto& t : times) {
-            g[t[0]].emplace_back(t[1], t[2]);
-        }
-        const int inf = 1e9;
-        vector<int> dist(n + 1, inf);
-		vector<bool> vis(n + 1, false);
-        dist[k] = 0;
-        priority_queue<pii, vector<pii>, greater<pii> > pq;
-        pq.emplace(0, k);
-        int u, v, w;
-        while (!pq.empty()) {
-            u = pq.top().second; pq.pop();
-			if (vis[u]) continue;
-			vis[u] = true;
-            for (auto& to : g[u]) {
-                v = to.first, w = to.second;
-                if (dist[v] > dist[u] + w) {
-                    dist[v] = dist[u] + w;
-                    pq.emplace(dist[v], v);
+        vector<pair<int,int>> adj[n+1];
+        for(int i=0;i<times.size();i++)
+                adj[times[i][0]].push_back({times[i][1],times[i][2]});
+        vector<int> dist(n+1,INT_MAX);
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        pq.push({0,k});
+        dist[k]=0;
+        while(!pq.empty())
+        {
+            pair<int,int> t=pq.top();
+            pq.pop();
+            for(pair<int,int> it:adj[t.second])
+            {
+                if(dist[it.first]>t.first+it.second)
+                {
+                    dist[it.first]=t.first+it.second;
+                    pq.push({dist[it.first],it.first});
                 }
             }
         }
-        int ans = *max_element(dist.begin() + 1, dist.end());
-        return ans == inf ? -1 : ans;
-    }
+        int res=0;
+        for(int i=1;i<=n;i++)
+        {
+            if(dist[i]==INT_MAX)
+                return -1;
+            res=max(res,dist[i]);
+        }
+		return res;
+	}
 };
