@@ -12,7 +12,7 @@
 class Solution {
 public:
     bool isSameTree(TreeNode* p, TreeNode* q) {
-        if(p==NULL or q==NULL)
+        if(!p or !q)
         {
             return p==q;
         }
