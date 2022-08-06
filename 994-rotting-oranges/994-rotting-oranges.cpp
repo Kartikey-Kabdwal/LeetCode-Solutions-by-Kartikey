@@ -1,63 +1,62 @@
 class Solution {
 public:
-    int orangesRotting(vector<vector<int>>& grid) {
-      
-        vector<int> dir={-1,0,1,0,-1}; 
-      
-        int fresh=0;
-     
-        int n=grid.size();
-        int m=grid[0].size();
-       
-        queue<pair<int,int>>q;
-        
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                if(grid[i][j]==2)
-                {
-                    q.push({i,j});
-                   
-                }
-                if(grid[i][j]==1)
-                {
-                    fresh++;
-                }
-            }
-        }
-        int ans=-1;
+	int orangesRotting(vector<vector<int>>& grid) {
+		int row = grid.size();
+		int col = grid[0].size();
+		queue<pair<int,int> > q;
+		bool onePresent = false;
+
+		for(int i=0; i<row; ++i)
+			for(int j=0; j<col; ++j)
+				if(grid[i][j] == 2)
+					q.push({i,j});
+				else if(grid[i][j] == 1)
+					onePresent = true;
+
+		if(q.empty() && !onePresent) return 0;
+        int c=-1,ans=0;
         while(!q.empty())
         {
-            int k=q.size();
-           
-            for(int i=0;i<k;i++)
+            ++c;
+            int sz=q.size();
+            for(int i=0;i<sz;i++)
             {
-               
-               auto p=q.front();
-                 q.pop();
-                for(int j=0;j<4;j++)
-                {
-                     int r=p.first+dir[j];
-                     int c=p.second+dir[j+1];
-                    
-                    if(r>=0 and c>=0 and r<n and c<m and grid[r][c]==1)
-                    {
-                        grid[r][c]=2;
-                        fresh--;
-                        q.push({r,c});
-                    } 
-                }
-                
-                 
+            auto it=q.front();
+            q.pop();
+            
+            if(it.first>0 and grid[it.first-1][it.second]==1 )
+            {
+                q.push({it.first-1,it.second});
+                grid[it.first-1][it.second]=2;
             }
-             ans++;
+            if(it.first<row-1 and grid[it.first+1][it.second]==1 )
+            {
+                q.push({it.first+1,it.second});
+                grid[it.first+1][it.second]=2;
+            }
+            if(it.second>0 and grid[it.first][it.second-1]==1 )
+            {
+                q.push({it.first,it.second-1});
+                grid[it.first][it.second-1]=2;
+            }
+            if(it.second<col-1 and grid[it.first][it.second+1]==1 )
+            {
+                q.push({it.first,it.second+1});
+                grid[it.first][it.second+1]=2;
+            } 
+            }
         }
-         if(fresh>0) return -1; //if fresh>0 that means there are fresh oranges left
-        if(ans==-1) return 0; //we initialised with -1, so if there were no oranges it'd take 0 mins.
-        return ans;
-        
-        
-        
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(grid[i][j]==1)
+                {
+                    return -1;
+                }
+            }
+        }
+        return c;
     }
 };
+
