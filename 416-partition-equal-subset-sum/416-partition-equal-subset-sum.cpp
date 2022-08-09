@@ -1,37 +1,37 @@
 class Solution {
 public:
-    bool check(vector<int>arr,int n,int sum,vector<vector<int>>&dp)
-{
-     if (sum == 0)
-     {
-          return dp[n][sum]=1;
-     }
-     if (n == 0)
-     {
-          return dp[n][sum]=arr[n] == sum;
-     }
-        if(dp[n][sum]!=-1)
+    bool check(vector<int>&v,int i,int x,vector<vector<int>>&dp)
+    {
+        if(x<=0)
         {
-            return dp[n][sum];
+              return x==0;
         }
-     if (arr[n] > sum)
-     {
-          return dp[n][sum]= check(arr, n - 1, sum,dp);
-     }
-     return dp[n][sum]=check(arr, n - 1, sum - arr[n],dp) or check(arr, n - 1, sum,dp);
-}
-
-    bool canPartition(vector<int>& arr) {
-        int n=arr.size();
-         int sum=accumulate(arr.begin(),arr.end(),0);
-        if(sum%2==1)
+        if(i==0)
+        { return (v[i]==x);}
+        if(dp[i][x]!=-1)
         {
-            return false;
+            return dp[i][x];
         }
-        sum/=2;
-        vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
+         
+        else
+        {
+            return dp[i][x]= check(v,i-1,x,dp) or check(v,i-1,x-v[i],dp);
+        }
+    }
+    bool canPartition(vector<int>& v) {
+        int n=v.size();
         
-        return check(arr,n-1,sum,dp);
+        int x=accumulate(v.begin(),v.end(),0);
+        
+        if(x%2==1) 
+        {return 0;}
+        else
+        {
+            x=x/2;
+            vector<vector<int>>dp(n+1,vector<int>(x+1,-1));
+             
+          return check(v,n-1,x,dp) ;
+        }
         
     }
 };
