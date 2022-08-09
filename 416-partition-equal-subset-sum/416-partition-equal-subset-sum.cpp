@@ -4,7 +4,7 @@ public:
 {
      if (sum == 0)
      {
-          return true;
+          return dp[n][sum]=1;
      }
      if (n == 0)
      {
