@@ -8,7 +8,7 @@ public:
      }
      if (n == 0)
      {
-          return arr[n] == sum;
+          return dp[n][sum]=arr[n] == sum;
      }
         if(dp[n][sum]!=-1)
         {
