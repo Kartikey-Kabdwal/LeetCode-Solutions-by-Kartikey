@@ -1,25 +1,37 @@
 class Solution {
 public:
-    int dp[10000 + 1][12 + 1];  // New Line Added
-    
-    int memoization(vector<int>& wt, int w, int n)
+    int count(int k, vector<int>& v,int n,int i,vector<vector<int>>&dp)
     {
-        if (n == 0 || w == 0)
-            return (w == 0) ? 0 : INT_MAX - 1;
-        
-        if (dp[w][n] != -1) // New Line Added
-            return dp[w][n];  // New Line Added
-			
-        if (wt[n - 1] > w) 
-            return dp[w][n] = 0 + memoization(wt, w - 0, n - 1);
-        else 
-            return dp[w][n] = min(0 + memoization(wt, w - 0, n - 1), 1 + memoization(wt, w - wt[n - 1], n));
+        if(k==0)
+        {
+            return 0;
+        }
+        if(i==n)
+        {
+            return INT_MAX-1;
+        }
+        if(dp[i][k]!=INT_MAX)
+        {
+            return dp[i][k];
+        }
+        int res=-1;
+        int reject=count(k,v,n,i+1,dp);
+        res=reject;
+        int accept=0;
+        if(k>=v[i])
+        {
+            accept=1+count(k-v[i],v,n,i,dp);
+            res=min(res,accept);
+        }
+        return dp[i][k]=res;
     }
     
-    int coinChange(vector<int>& coins, int amount) 
-    {
-        memset(dp, -1, sizeof(dp)); // New Line Added
-        int minCoins = memoization(coins, amount, coins.size());
-        return minCoins == INT_MAX - 1 ? -1 : minCoins;    
+    int coinChange(vector<int>& v, int k) {
+         int n=v.size();
+        vector<vector<int>>dp(n+1,vector<int>(k+1,INT_MAX));
+        int res= count(k,v,n,0,dp);
+        return res==INT_MAX-1?-1:res;
+        
+        
     }
 };
