@@ -10,18 +10,15 @@ public:
         {
             return dp[n][m];
         }
-        else
-        {
         if(a[n-1]==b[m-1])
         {
-            dp[n][m]= 1+lcs(n-1,m-1,a,b,dp);
+            return dp[n][m]= 1+lcs(n-1,m-1,a,b,dp);
         }
-        else
-        {
-            dp[n][m]= max(lcs(n-1,m,a,b,dp),lcs(n,m-1,a,b,dp));
-        }
-        }
-        return dp[n][m];
+        
+            return dp[n][m]= max(lcs(n-1,m,a,b,dp),lcs(n,m-1,a,b,dp));
+        
+        
+      
     }
     int longestPalindromeSubseq(string a) {
         string b(a.rbegin(), a.rend());
