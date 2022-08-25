@@ -12,7 +12,7 @@ public:
             j=max(j,i+v[i]);
             
         }
-        return true;
         
+        return true;
     }
 };
