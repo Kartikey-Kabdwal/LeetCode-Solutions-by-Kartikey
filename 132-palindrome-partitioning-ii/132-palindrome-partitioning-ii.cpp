@@ -1,50 +1,54 @@
-class Solution {
+class Solution
+{
 public:
-  
-    bool ispal(string &s,int i,int j)
-    {
-        while(i<j)
-        {
-            if(s[i++]!=s[j--])
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    int count(string &s,int i,int j,vector<vector<int>>&memo)
-    {
-        if(i>=j)
-        {
-            return memo[i][j] = 0;
-        }
-        if(memo[i][j]!=-1)
-        {
-            return memo[i][j];
-        }
-        if(ispal(s,i,j))
-        {
-            return memo[i][j]=0;
-        }
-  int ans=INT_MAX;
-        for(int k=i;k<j;k++)
-        {
-            if(ispal(s,i,k)==false)
-            { continue;
-            }
+     bool isPalindrome(string &s, int start, int end)
+     {
 
-            int temp=1+count(s,i,k,memo)+count(s,k+1,j,memo);
-            ans=min(temp,ans);
-            
-        }
-        return memo[i][j]=ans;
-        
-    }
-    int minCut(string s) {
-        int n=s.size();
-        vector<vector<int>>memo(n+1,vector<int>(n+1,-1));
-        return count(s,0,n-1,memo);
-        
-        
-    }
+          while (start < end)
+          {
+
+               if (s[start] != s[end])
+                    return false;
+
+               start += 1;
+               end -= 1;
+          }
+
+          return true;
+     }
+
+     int solve(string &s, int start, int end, vector<vector<int>> &dp)
+     {
+
+          if (dp[start][end] != -1)
+               return dp[start][end];
+
+          if (start >= end)
+               return dp[start][end] = 0;
+
+          if (isPalindrome(s, start, end) == true)
+               return dp[start][end] = 0;
+
+          int ans = INT_MAX;
+
+          for (int ctr = start; ctr < end; ctr++)
+          {
+
+               if (isPalindrome(s, start, ctr) == false)
+                    continue;
+
+               int tempAns = solve(s, start, ctr, dp) + solve(s, ctr + 1, end, dp) + 1;
+
+               if (tempAns < ans)
+                    ans = tempAns;
+          }
+
+          return dp[start][end] = ans;
+     }
+
+     int minCut(string s)
+     {
+          vector<vector<int>> dp(s.size() + 1, vector<int>(s.size() + 1, -1));
+          return solve(s, 0, s.length() - 1, dp);
+     }
 };
