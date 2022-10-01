@@ -1,10 +1,5 @@
 class Solution {
 public:
- int numDecodings(string s) {
-     int n = s.size();
-        vector<int>dp(n+1,-1);
-        return s.empty() ? 0: calc(0,s,dp);    
-    }
     int calc(int p, string& s,vector<int>&dp) {
         int n = s.size();
         if(p == n) return 1;
@@ -22,6 +17,11 @@ public:
             res += calc(p+2,s,dp);
         }
         return dp[p]=res;
+    }
+ int numDecodings(string s) {
+     int n = s.size();
+        vector<int>dp(n+1,-1);
+        return s.empty() ? 0: calc(0,s,dp);    
     }
 
 };
