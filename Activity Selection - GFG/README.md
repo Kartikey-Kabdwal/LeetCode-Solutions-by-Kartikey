@@ -1,7 +1,6 @@
 # Activity Selection
-## Easy 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given <strong>N</strong>&nbsp;activities with their start and finish day given in array <strong>start[ ]</strong> and <strong>end[ ]</strong>. Select the maximum number of activities that can be performed by a single person, assuming that a person can only work on a single activity at a given day.</span><br>
+## Easy
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given <strong>N</strong>&nbsp;activities with their start and finish day given in array <strong>start[ ]</strong> and <strong>end[ ]</strong>. Select the maximum number of activities that can be performed by a single person, assuming that a person can only work on a single activity at a given day.</span><br>
 <span style="font-size:18px"><strong>Note :&nbsp;</strong>Duration of the activity includes both starting and ending day.</span></p>
 
 <p><br>
@@ -42,5 +41,4 @@ You don't need to read input or print anything. Your task is to complete the fun
 <span style="font-size:18px"><strong>Constraints:</strong><br>
 1 ≤ N ≤&nbsp;2*10<sup>5</sup><br>
 1 ≤&nbsp;start[i] ≤&nbsp;end[i] ≤&nbsp;10<sup>9</sup></span></p>
- <p></p>
-            </div>
+</div>
