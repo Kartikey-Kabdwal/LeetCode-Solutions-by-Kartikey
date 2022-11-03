@@ -1,55 +1,42 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
-
- bool func(pair<int,int>a,pair<int,int>b)
-    {
-        if(a.second==b.second)
-        {
-            return a.first<b.first;
-        }
-        return a.second<b.second;
-        }
+// } Driver Code Ends
 class Solution
 {
-    
     public:
-    
-    
+    static bool func(pair<int,int>a,pair<int,int>b)
+    {
+        return a.second<b.second;
+    }
     //Function to find the maximum number of meetings that can
     //be performed in a meeting room.
-    int maxMeetings(int s[], int e[], int n)
+    int maxMeetings(int start[], int end[], int n)
     {
-        // Your code here
-        
         vector<pair<int,int>>v;
         for(int i=0;i<n;i++)
         {
-            v.push_back({s[i],e[i]});
+            v.push_back({start[i],end[i]});
+            
         }
         sort(v.begin(),v.end(),func);
         int c=1;
-        int i=0,j=1;
-        while(j<n)
+        int last=v[0].second;
+        for(int i=1;i<n;i++)
         {
-            if(v[j].first>v[i].second)
+            // cout<<v[i].first<<" "<<v[i].second<<endl;
+            if(v[i].first>last)
             {
+                last=v[i].second;
                 c++;
-                i=j;
-                j++;
-            }
-            else
-            {
-                j++;
             }
         }
         return c;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 int main() {
     int t;
     cin >> t;
@@ -66,4 +53,5 @@ int main() {
         cout << ans << endl;
     }
     return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
