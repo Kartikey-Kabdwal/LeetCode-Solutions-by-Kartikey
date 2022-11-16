@@ -25,9 +25,6 @@ public:
             }
             mid=(high-low)/2+low;
             
-            
-            
-            
         }
         return mid;
         
