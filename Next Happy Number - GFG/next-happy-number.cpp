@@ -33,30 +33,19 @@ bool ishappy(int n)
      }
      return true;
 }
-void calc()
-{
-     v[0] = false;
-     for (int i = 1; i <= sz; i++)
-     {
-          if (ishappy(i))
-          {
-               v[i] = true;
-          }
-          else
-          {
-               v[i] = false;
-          }
-     }
-}
     int nextHappy(int n){
-        calc();
+        
         n++;
        
-        while (!v[n])
+        while (true)
      {
+         if(ishappy(n))
+         {
+             return n;
+         }
           n++;
      }
-     return  n;
+     return  -1;
     }
 };
 
