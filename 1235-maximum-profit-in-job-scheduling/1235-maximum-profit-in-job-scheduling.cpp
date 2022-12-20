@@ -1,18 +1,31 @@
 class Solution {
 public:
-    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
-        int n = startTime.size();
-        vector<vector<int>> jobs;
-        for (int i = 0; i < n; ++i) {
-            jobs.push_back({endTime[i], startTime[i], profit[i]});
-        }
-        sort(jobs.begin(), jobs.end());
-        map<int, int> dp = {{0, 0}};
-        for (auto& job : jobs) {
-            int cur = prev(dp.upper_bound(job[1]))->second + job[2];
-            if (cur > dp.rbegin()->second)
-                dp[job[0]] = cur;
-        }
-        return dp.rbegin()->second;
+    vector<int> dp;
+int find(vector<vector<int>>& events, int idx, int end) {
+    if (idx == events.size()) {
+        return 0;
     }
+    if (events[idx][0] < end) {
+        return find(events, idx + 1, end);
+    }
+    if (dp[idx] != -1) {
+        return dp[idx];
+    }
+    int res = max(events[idx][2] + find(events, idx + 1, events[idx][1]), find(events, idx + 1, end));
+    return dp[idx] = res;
+}
+
+int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    vector<vector<int>> events(startTime.size(), vector<int>(3, 0));
+    for (int i = 0; i < startTime.size(); i++) {
+        events[i][0] = startTime[i];
+        events[i][1] = endTime[i];
+        events[i][2] = profit[i];
+    }
+    sort(events.begin(), events.end());
+    int n = events.size();
+    dp.resize(n, -1);
+    return find(events, 0, 0);
+}
+
 };
