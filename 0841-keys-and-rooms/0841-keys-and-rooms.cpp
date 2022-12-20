@@ -1,33 +1,38 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& v,vector<bool>&vis,int i)
+    void dfs(int start,vector<bool>&vis, vector<int>g[])
     {
-        if(vis[i])
+        if(vis[start])
         {
             return;
         }
-           vis[i]=true;
-        for(auto it:v[i])
+        vis[start]=true;
+        for(auto it:g[start])
         {
-         dfs(v,vis,it);
-            
+            dfs(it,vis,g);
         }
     }
     bool canVisitAllRooms(vector<vector<int>>& v) {
         
+        vector<bool>vis(v.size(),false);
         int n=v.size();
-        vector<bool>vis(n,false);
-        
-        dfs(v,vis,0);
+        vector<int>g[n];
         for(int i=0;i<n;i++)
         {
-            if(vis[i]==false)
+            for(auto it:v[i])
+            {
+                g[i].push_back(it);
+            }
+        }
+        dfs(0,vis,g);
+        for(auto it:vis)
+        {
+            if(!it)
             {
                 return false;
             }
         }
         return true;
-        
         
     }
 };
