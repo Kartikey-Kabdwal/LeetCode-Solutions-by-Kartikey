@@ -11,18 +11,32 @@
  */
 class Solution {
 public:
+    void calc(TreeNode* root,int level,unordered_map<int,int>&m)
+    {
+        if(!root)
+        {
+            return;
+        }
+        m[level]+=root->val;
+        calc(root->left,level+1,m);
+        calc(root->right,level+1,m);
+        
+    }
     int deepestLeavesSum(TreeNode* root) {
-        int res = 0, i;
-        queue<TreeNode*> q;
-        q.push(root);
-        while (q.size()) {
-            for (i = q.size() - 1, res = 0; i >= 0; --i) {
-                TreeNode* node = q.front(); q.pop();
-                res += node->val;
-                if (node->right) q.push(node->right);
-                if (node->left)  q.push(node->left);
+        
+        unordered_map<int,int>m;
+        calc(root,0,m);
+        int a=-1,b=0;
+        
+        for(auto it:m)
+        {
+            if(a<it.first)
+            {
+                a=it.first;
+                b=it.second;
             }
         }
-        return res;
+        return b;
+        
     }
 };
