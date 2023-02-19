@@ -1,28 +1,29 @@
 class Solution {
 public:
-    int divisorSubstrings(int n, int k) {
-        string x=to_string(n);
-        int c=0,i=0,j=0;
-        string t="";
-        while(j<x.size())
+    int divisorSubstrings(int nums, int k) {
+       string s=to_string(nums);
+        int n=s.size();
+        int i=0,j=0;
+        int c=0;
+        string temp="";
+        
+        while(j<n)
         {
-            t+=x[j];
+            temp+=s[j];
             if(j-i+1==k)
-            {
-                int y=stoi(t);
-                
-                if(y and n%y==0)
+            {                
+                int f=stoi(temp);
+                cout<<f<<" ";
+                if(f!=0 and nums%f==0 )
                 {
                     c++;
                 }
-                cout<<t<<"<-";
-                t.erase(0,1);
+                temp.erase(0,1); 
                 i++;
-                
             }
+            
             j++;
         }
-        // cout<<t;
         return c;
     }
 };
