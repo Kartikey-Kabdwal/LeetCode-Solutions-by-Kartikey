@@ -1,43 +1,29 @@
 class Solution {
 public:
-    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start_node, int end_node) 
-    {
-        //creating the adjacency list
-        vector<vector<pair<int,double>>>adjl(n);
-        for(int i=0;i<edges.size();i++)
-         {
-            int start=edges[i][0];
-            int end=edges[i][1];
-            double prob=succProb[i];
-            adjl[start].push_back({end,prob});
-            adjl[end].push_back({start,prob});
+   double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        vector< pair<int,double> > g[n]; //Initializing graph for n vertices.
+		//Adding each weighted edge to graph g.
+        for(int i=0;i<edges.size();i++){
+            g[edges[i][0]].push_back({edges[i][1],succProb[i]});
+            g[edges[i][1]].push_back({edges[i][0],succProb[i]});
         }
-        //Priority queue Max_heap {Probability,End Node}
-        priority_queue<pair<double,int>>q;
-        q.push({1,start_node});
-        //Visited Array
-        vector<double>visited(n,0);
-        visited[start_node]=1;
-        while(!q.empty())
-        {
-            double prob=q.top().first;
-            int node=q.top().second;
-            q.pop();
-            for(auto it:adjl[node])
-            {
-                double next_prob=it.second;
-                int next_node=it.first;
-                double total_prob=(double)prob*next_prob;
-                if(visited[next_node]<total_prob)
+        priority_queue< pair<int,double>, vector <pair<int,double> > > pq; //Initializing max priority queue.
+        vector<double> dist(n, 0); // Initializing distance vector to store probability of each node 
+        pq.push(make_pair(1, start)); 
+        dist[start] = 1;
+        while (!pq.empty()){ 
+            int u = pq.top().second; 
+            pq.pop(); 
+            for (auto x : g[u]) {
+                int v = x.first; 
+                double weight = x.second;
+                if (dist[v] < dist[u] * weight) 
                 {
-                    visited[next_node]=total_prob;
-                    q.push({total_prob,next_node});
-                }
-
-            }
-
+                    dist[v] = dist[u] * weight; 
+                    pq.push({dist[v], v}); 
+                } 
+            } 
         }
-        return visited[end_node];
-        
+        return dist[end];//returning probability of destination node.
     }
 };
