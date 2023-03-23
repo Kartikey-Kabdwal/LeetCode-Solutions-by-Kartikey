@@ -11,7 +11,6 @@ int find(int u)
   else
      return parent[u] = find(parent[u]);
 }
-
 void combine(int u, int v)
 {
   u = find(u);
@@ -27,7 +26,6 @@ void combine(int u, int v)
        parent[v] = u;
        size[u] += size[v];
      }
-
      else
      {
        parent[u] = v;
@@ -52,15 +50,6 @@ void combine(int u, int v)
             }
             combine(it[0],it[1]);
         }
-        for(int i=0;i<n;i++)
-        {
-            cout<<parent[i]<<" ";
-        }
-         cout<<endl;
-         for(int i=0;i<n;i++)
-        {
-            cout<<size[i]<<" ";
-        }
         unordered_set<int>s;
         for(int i=0;i<n;i++)
         {
@@ -68,7 +57,6 @@ void combine(int u, int v)
             
         }
         int sz=s.size();
-        cout<<"->"<<sz;
         int need=sz-1;
         if(need==0)
         {
