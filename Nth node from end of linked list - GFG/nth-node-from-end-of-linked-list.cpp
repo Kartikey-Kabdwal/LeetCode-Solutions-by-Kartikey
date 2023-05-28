@@ -1,4 +1,5 @@
-// { Driver Code Starts
+//{ Driver Code Starts
+//Initial Template for C++
 // C program to find n'th Node in linked list
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +23,48 @@ int getNthFromLast(struct Node* head, int n);
 
 
 /* Driver program to test above function*/
+
+// } Driver Code Ends
+/* struct Node {
+  int data;
+  struct Node *next;
+  Node(int x) {
+    data = x;
+    next = NULL;
+  }
+};
+*/
+
+//Function to find the data of nth node from the end of a linked list.
+class Solution{
+public:
+    int getNthFromLast(Node *head, int n)
+    {
+        
+           Node *slow=head,*fast=head;
+           while(n--)
+           {
+               if(!fast)
+               {
+                   return -1;
+               }
+               fast=fast->next;
+               
+           }
+           while(fast)
+           {
+               fast=fast->next;
+               slow=slow->next;
+           }
+           
+           return slow->data;
+    }
+};
+
+
+
+//{ Driver Code Starts.
+
 int main()
 {
   int T,i,n,l,k;
@@ -42,48 +85,9 @@ int main()
             tail->next = new Node(l);
             tail = tail->next;
         }
-
-    cout<<getNthFromLast(head, k)<<endl;
+    Solution obj;
+    cout<<obj.getNthFromLast(head, k)<<endl;
     }
     return 0;
-}// } Driver Code Ends
-
-
-/* struct Node {
-  int data;
-  struct Node *next;
-  Node(int x) {
-    data = x;
-    next = NULL;
-  }
-};
-*/
-
-//Function to find the data of nth node from the end of a linked list.
-int getNthFromLast(Node *head, int n)
-{
-    Node *slow=head,*fast=head;
-    int c=0;
-    int temp=n;
-    while(n-- and fast)
-    {
-        fast=fast->next;
-        c++;
-    }
-    while(fast)
-    {
-        slow=slow->next;
-        fast=fast->next;
-        c++;
-    }
-    if(n>c)
-    {
-        return -1;
-    }
-    if(c<temp)
-    {
-        return -1;
-    }
-    return slow->data;
 }
-
+// } Driver Code Ends
